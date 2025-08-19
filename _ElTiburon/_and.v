@@ -1,11 +1,11 @@
-// 1.- Module definition - input and output
-
+// 1.- Module definition - inputs and outputs.
 module _and (input A, input B, output C);
-// 2.- Signals and intern elements
+  
+// 2.- Signals and internal elements.
 // N/A
-// 3.- Module behaviour
-//     (assignaments, instances, connections, etc).
-
+  
+// 3.- Module behavior
+//     (assignments, instances, connections, etc).
 assign  C = A&B;
 
 endmodule
