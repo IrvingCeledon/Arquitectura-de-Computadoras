@@ -32,4 +32,5 @@ begin
    default : C = 4'b0000; // Best Practices?
  endcase
 end
- 
+ C = (A > B) ? 4'b1111 : 4'b0000;
+ C = (A * B)[3:0];
