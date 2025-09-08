@@ -5,7 +5,7 @@ module _LG_TB;
 reg A_tb, B_tb;
 wire _AND_tb, _NAND_tb, _OR_tb, _NOR_tb, _NOT_tb,  _XOR_tb, _XNOR_tb;
 
-_HA DUV (.A(A_tb), .B(B_tb), .S(S_tb), .AS(AS_tb));
+  _LOGIC_GATES DUV (.A(A_tb), .B(B_tb), ._AND(_AND_tb), ._NAND(_NAND_tb), ._OR(_OR_tb), ._NOR(_NOR_tb), ._NOT(_NOT_tb), ._XOR(_XOR_tb), ._XNOR(_XNOR_tb);
 
 initial 
 begin
