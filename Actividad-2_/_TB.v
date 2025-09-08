@@ -1,5 +1,31 @@
 `timescale 1ns/1ns
 
+module _LG_TB;
+
+reg A_tb, B_tb;
+wire _AND_tb, _NAND_tb, _OR_tb, _NOR_tb, _NOT_tb,  _XOR_tb, _XNOR_tb;
+
+_HA DUV (.A(A_tb), .B(B_tb), .S(S_tb), .AS(AS_tb));
+
+initial 
+begin
+A_tb = 0;
+B_tb = 0;
+#100;
+A_tb = 1;
+B_tb = 0;
+#100;
+A_tb = 0;
+B_tb = 1;
+#100;
+A_tb = 1;
+B_tb = 1;
+#100;
+$stop;
+end
+
+endmodule
+
 module _ALU_TB();
 
 reg [3:0] A_tb, B_tb, Sel_tb;
