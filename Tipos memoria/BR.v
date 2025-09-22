@@ -11,11 +11,12 @@ module br (RR1, RR2, WriteReg, WriteData, RegWrite, RD1, RD2);
 // 3.- Assignments, Sequential Blocks, and Module Instances:
 always @*
 begin
+  if ( RegWrite )
+    BR[WriteReg] = WriteData;
+
   RD1 = BR[RR1];
   RD2 = BR[RR2];
-	
-  if ( RegWrite == 1'b1 )
-    BR[WriteReg] = WriteData;
 end
 
 endmodule
+// Asignacion por bloqueo
