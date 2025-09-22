@@ -31,4 +31,7 @@ end
 
 endmodule
 
+// initial
+// begin
 // $readmemb("Data.txt", Banco);
+// end
