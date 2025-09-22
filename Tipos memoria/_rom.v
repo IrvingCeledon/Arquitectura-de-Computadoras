@@ -2,9 +2,9 @@
 module rom (direccion, dato_s);
 	input [7:0] direccion;
 	output reg [7:0] dato_s;
+	
 //2.Componentes internos
 //Creacion de la ROM
-
 reg [7:0] ROM [0:10]; 
 
 //3.Cuerpo del modulo
@@ -23,11 +23,9 @@ initial
 		ROM [10] =8'd101;
 	end 
 
-
 always @*
 begin
 	dato_s = ROM[direccion];
 end
-
 
 endmodule
