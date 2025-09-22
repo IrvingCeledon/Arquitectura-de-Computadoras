@@ -21,7 +21,7 @@ RegWrite_tb = 1'b0;
 #100;
 
 // TEST WriteReg = 1'b0
-RR1_tb = 5'b10110;
+// RR1_tb = 5'b10110;
 // RR2_tb = 5'h00;
 RegWrite_tb = 1'b1;
 WriteReg_tb = 1'h00;
@@ -30,3 +30,5 @@ $stop;
 end
 
 endmodule
+
+// $readmemb("Data.txt", Banco);
