@@ -13,25 +13,46 @@ br DUV (.RR1(RR1_tb), .RR2(RR2_tb), .WriteReg(WriteReg_tb),
 	.RD1(RD1_tb), .RD2(RD2_tb));
 
 initial
+
 begin
-// TEST WriteReg = 1'b1
-RR1_tb = 5'hFF;
-RR2_tb = 5'hFF;
+$readmemb("Data.txt", DUV.BR);
+
+// TEST 1 WriteReg = 1'b0
 RegWrite_tb = 1'b0;
+RR1_tb = 5'b11111;
+RR2_tb = 5'b00001;
 #100;
 
-// TEST WriteReg = 1'b0
-// RR1_tb = 5'b10110;
-// RR2_tb = 5'h00;
+// TEST 2 WriteReg = 1'b1
 RegWrite_tb = 1'b1;
-WriteReg_tb = 1'h00;
+WriteReg_tb = 5'b11111;
+WriteData_tb = 32'hFFFFFFFF;
+RR1_tb = 5'b11111;
+RR2_tb = 5'b00001;
+#100;
+
+// TEST 3 WriteReg = 1'b1
+RegWrite_tb = 1'b1;
+WriteReg_tb = 5'b11111;
+WriteData_tb = 32'd23;
+RR1_tb = 5'b11111;
+RR2_tb = 5'b00001;
+#100;
+
+// TEST 4 WriteReg = 1'b0
+RegWrite_tb = 1'b0;
+RR1_tb = 5'b01011;
+RR2_tb = 5'b10001;
+#100;
+
+// TEST 5 WriteReg = 1'b1
+RegWrite_tb = 1'b1;
+WriteReg_tb = 5'b10001;
+WriteData_tb = 32'd47;
+RR1_tb = 5'b11111;
+RR2_tb = 5'b10001;
 #100;
 $stop;
 end
 
 endmodule
-
-// initial
-// begin
-// $readmemb("Data.txt", Banco);
-// end
