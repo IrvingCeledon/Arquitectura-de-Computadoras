@@ -1,4 +1,6 @@
 // 1. Definicion del modulo
+// RR: Read Register
+// RD: Read Data
 module br (RR1, RR2, WriteReg, WriteData, RegWrite, RD1, RD2);
   input [4:0] RR1, RR2, WriteReg;
   input [31:0] WriteData;
