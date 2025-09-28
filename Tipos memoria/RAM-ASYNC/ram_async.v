@@ -11,14 +11,17 @@ module ram (address, data_in, data_out, writeOn);
 
 //3. Assignments, Sequential Blocks, and Module Instances:
   initial
+	
+  // Load of data  
+  $readmemb("Data.txt", RAM);
   
   always @*
   begin    
-    if (writeOn) begin
+	if (writeOn) begin  // if flag rises
       RAM[address] = data_in;
     end
 
-    data_out = RAM[address];
+	data_out = RAM[address];  // Normal output	
   end
   
 endmodule
