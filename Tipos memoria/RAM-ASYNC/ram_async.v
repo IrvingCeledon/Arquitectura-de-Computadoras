@@ -19,7 +19,9 @@ module ram (address, data_in, data_out, writeOn);
 	  RAM[address] = data_in;  // Asynchronous writing
     end
 
-	data_out = RAM[address];  // else Asynchronous reading
+	begin
+	  data_out = RAM[address];  // Asynchronous reading is always on
+	end
   end
   
 endmodule
