@@ -1,13 +1,14 @@
 //1. Module definition
 module ram (address, data_in, data_out, writeOn);
-  input [7:0] address, data_in;
-  output reg [7:0] data_out;
+  input [5:0] address;
+  input [31:0] data_in;
+  output reg [31:0] data_out;
   input writeOn;
 	
 //2. Internal components
 
 // RAM creation
-  reg [7:0] RAM [0:10]; 
+  reg [31:0] RAM [0:31]; 
 
 //3. Assignments, Sequential Blocks, and Module Instances:
   initial begin
