@@ -1,5 +1,5 @@
 //1. Module definition
-module ram (address, data_in, data_out, writeOn);
+module ram_async (address, data_in, data_out, writeOn);
   input [4:0] address;
   input [31:0] data_in;
   output reg [31:0] data_out;
