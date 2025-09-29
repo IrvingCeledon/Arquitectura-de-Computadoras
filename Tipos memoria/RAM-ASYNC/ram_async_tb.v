@@ -1,31 +1,40 @@
 `timescale 1ns/1ns
 
-module _ram_tb();
-	reg [4:0] address_tb;
-	reg writeOn_tb;
-	reg [31:0] data_in_tb;
-	wire [31:0] data_out;
+module ram_async_tb();
+  reg [4:0] address_tb;
+  reg writeOn_tb;
+  reg [31:0] data_in_tb;
+  wire [31:0] data_out_tb;
 
-ram DUV (.address(address_tb), 
-		 .writeOn(writeOn_tb), 
-		 .data_in(data_in_tb), 
-		 .data_out(data_out));
+ram_async DUV (.address(address_tb), 
+	 .writeOn(writeOn_tb), 
+	 .data_in(data_in_tb), 
+	 .data_out(data_out_tb));
 
-	reg [38:0] instructions [0:4]; 
+  reg [38:0] instructions [0:4];
+  integer i;
 
-initial
+  // [0] address, 6'b.
+  // [1] flag, 1'.
+  // [2] data, 32'b.
+  reg [31:0] instr_parts [2:0];
 
-begin
-	$readmemb("instructions.txt", instructions);
+initial begin
+  $readmemb("instructions.txt", instructions);
 
-	for (int i = 0; i < 5; i++) begin
-		address_tb = instructions[i][38:33];
-		writeOn_tb = instructions[i][32];
-		data_in_tb = instructions[i][31:0];
-		#100
-	end
+  for (i = 0; i < 5; i = i + 1) begin
+    address_tb = instructions[i][38:33]; // Could be an "unused" variable
+    instr_parts[0] = {27'b0, address_tb}; // Or this 
 
-	$stop;
+    writeOn_tb = instructions[i][32];
+    instr_parts[1] = {31'b0, address_tb};
+
+    data_in_tb = instructions[i][31:0];
+    instr_parts[2] = data_in_tb;
+    #100;
+  end
+
+  $stop;
 end
 	
 endmodule
