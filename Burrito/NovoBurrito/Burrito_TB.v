@@ -21,6 +21,7 @@ ram_async RAM_tb (
 integer i;
 
 initial begin
+  #100
   for (i = 0; i <= 5; i = i + 1) begin
     addr_tb = i;
     we_tb = 0;
