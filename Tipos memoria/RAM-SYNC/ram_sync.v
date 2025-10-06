@@ -1,10 +1,9 @@
 //1. Module definition
-module ram_sync (clk, address, data_in, data_out, writeOn);
-  input clk;
+module ram_sync (clk, writeOn, address, data_in, data_out);
+  input clk, writeOn;
   input [4:0] address;
   input [31:0] data_in;
   output reg [31:0] data_out;
-  input writeOn;
 	
 //2. Internal components
 
