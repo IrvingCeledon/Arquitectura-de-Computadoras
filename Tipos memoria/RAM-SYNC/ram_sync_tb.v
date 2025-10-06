@@ -7,7 +7,7 @@ module ram_sync_tb();
   wire [31:0] data_out_tb;
 
   ram_sync DUV (.clk(clk_tb), .writeOn(writeOn_tb),
-                .address(adress_tb),
+                .address(address_tb),
                 .data_in(data_in_tb),
                 .data_out(data_out_tb));
 
