@@ -1,5 +1,5 @@
 //1. Module definition
-module ram_sync (clk, ddress, data_in, data_out, writeOn);
+module ram_sync (clk, address, data_in, data_out, writeOn);
   input clk;
   input [4:0] address;
   input [31:0] data_in;
@@ -17,11 +17,11 @@ module ram_sync (clk, ddress, data_in, data_out, writeOn);
   end
   
   always @(posedge clk) begin    
-	if (writeOn) begin  // if flag rises
-    RAM[address] = data_in;  // Synchronous writing
+	  if (writeOn) begin  // if flag rises
+      RAM[address] = data_in;  // Synchronous writing
     end
 
-    data_out = RAM[address];  // Synchronous reading is always on
+    data_out = RAM[address];  // Synchronous reading
   end
   
 endmodule
