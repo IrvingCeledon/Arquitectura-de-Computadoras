@@ -1,3 +1,5 @@
+`timescale 1ns/1ns
+
 //1. Module definition
 module ram_sync (clk, writeOn, address, data_in, data_out);
   input clk, writeOn;
@@ -14,10 +16,10 @@ module ram_sync (clk, writeOn, address, data_in, data_out);
   initial begin
 	  $readmemb("Data.txt", RAM);  // Load of data  
   end
-  
+	
   always @(posedge clk) begin    
 	  if (writeOn) begin  // if flag rises
-      RAM[address] = data_in;  // Synchronous writing
+			RAM[address] = data_in;  // Synchronous writing
     end
 
     data_out = RAM[address];  // Synchronous reading
