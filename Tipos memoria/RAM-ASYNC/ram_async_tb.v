@@ -11,7 +11,7 @@ ram_async DUV (.address(address_tb),
 	 .data_in(data_in_tb), 
 	 .data_out(data_out_tb));
 
-  reg [38:0] instructions [0:4];
+  reg [37:0] instructions [0:4];
   integer i;
 
   // [0] address, 6'b.
@@ -23,7 +23,7 @@ initial begin
   $readmemb("instructions.txt", instructions);
 
   for (i = 0; i < 5; i = i + 1) begin
-    address_tb = instructions[i][38:33]; // Could be an "unused" variable
+		address_tb = instructions[i][37:33]; // Could be an "unused" variable
     instr_parts[0] = {27'b0, address_tb}; // Or this 
 
     writeOn_tb = instructions[i][32];
