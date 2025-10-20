@@ -6,15 +6,12 @@ module cpu_tb();
 
   cpu DUV (.clk(clk_tb), .cpuInst(cpuInst_tb));
 
-  always @(clk_tb) begin
-    clk_tb = ~clk_tb;
-    #50;
-  end
+  always #50 clk_tb = ~clk_tb;
 
   initial begin
-    #50;
     clk_tb = 1'b0;
     #250;
   end
 
 endmodule
+
