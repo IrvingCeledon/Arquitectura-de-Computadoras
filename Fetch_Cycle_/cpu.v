@@ -6,9 +6,10 @@ module cpu(clk, cpuInst);
 
   wire [31:0] W1, W2;
 
-  pc PC(.pc_clk(clk), .next(W1), .current(W2));
+  pc PC(.pc_clk(clk), .next(W2), .current(W1));
   register_bank memory(.address(W1), .inst_out(cpuInst));
   adder add(.op1(4), .op2(W1), .result(W2));
   
 
 endmodule
+
