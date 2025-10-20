@@ -1,6 +1,13 @@
 import tkinter as tk
 from tkinter import scrolledtext, filedialog, messagebox
 
+def cargar_archivo():
+    ruta = filedialog.asksaveasfilename(
+        defaultextension=".txt",
+        filetypes=[("Archivo de texto", "*.txt")],
+        title="Guardar resultado como..."
+    )
+
 def procesar_texto():
     entrada = entrada_texto.get("1.0", tk.END).strip()
     if not entrada:
@@ -21,6 +28,9 @@ def procesar_texto():
         salida_texto.config(state='disabled')
     except ValueError:
         messagebox.showerror("Error", "Asegúrate de que todos los campos sean números enteros.")
+        
+def limpiar_texto():
+    entrada_texto.delete("1.0", tk.END)
 
 def copiar_portapapeles():
     if not resultado_final:
@@ -49,15 +59,17 @@ def guardar_como_txt():
 # -----------------------
 ventana = tk.Tk()
 ventana.title("Procesador de entrada")
-ventana.geometry("600x480")
+ventana.geometry("700x580")
 
 resultado_final = ""
 
 tk.Label(ventana, text="Entrada:").pack(anchor='w', padx=10)
+tk.Button(ventana, text="Cargar", command=cargar_archivo, font=("Arial", 11, "bold")).pack(pady=5)
 entrada_texto = scrolledtext.ScrolledText(ventana, height=8, width=70, font=("Consolas", 11))
 entrada_texto.pack(padx=10, pady=5, fill='both', expand=True)
 
 tk.Button(ventana, text="Procesar", command=procesar_texto, font=("Arial", 11, "bold")).pack(pady=5)
+tk.Button(ventana, text="Limpiar", command=limpiar_texto, font=("Arial", 11, "bold")).pack(pady=5)
 
 tk.Label(ventana, text="Salida:").pack(anchor='w', padx=10)
 salida_texto = scrolledtext.ScrolledText(ventana, height=8, width=70, font=("Consolas", 11), state='disabled')
