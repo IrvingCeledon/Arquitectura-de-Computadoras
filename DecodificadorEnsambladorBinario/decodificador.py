@@ -2,11 +2,25 @@ import tkinter as tk
 from tkinter import scrolledtext, filedialog, messagebox
 
 def cargar_archivo():
-    ruta = filedialog.asksaveasfilename(
-        defaultextension=".txt",
-        filetypes=[("Archivo de texto", "*.txt")],
-        title="Guardar resultado como..."
+    file_path = filedialog.askopenfilename(
+        title="Selecciona un archivo",
+        filetypes=(("Archivo de texto", "*.txt"), ("All files", "*.*"))
     )
+
+    if file_path:
+        messagebox.showinfo("Selected File", f"You selected: {file_path}")
+    else:
+        messagebox.showwarning("No File Selected", "No file was selected.")
+        
+    try:
+        with open(file_path, 'r') as file:
+            file_content = file.read()
+            limpiar_texto()
+            entrada_texto.insert(tk.END, file_content)
+    except FileNotFoundError:
+        messagebox.showerror("Error", f"File '{file_path}' not found.")
+    except Exception as e:
+        messagebox.showerror("Error", f"An error occurred: {e}")
 
 def procesar_texto():
     entrada = entrada_texto.get("1.0", tk.END).strip()
