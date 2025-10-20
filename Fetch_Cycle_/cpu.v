@@ -8,6 +8,7 @@ module cpu(clk, cpuInst);
 
   pc PC(.pc_clk(clk), .next(W1), .current(W2));
   register_bank memory(.address(W1), .inst_out(cpuInst));
-  adder add(.op1(4), .op2(cpuInst), .result(W2));
+  adder add(.op1(4), .op2(W1), .result(W2));
   
+
 endmodule
