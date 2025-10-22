@@ -30,7 +30,6 @@ def assembler_to_text(text_input : str):
         numbers = [int(p) for p in fields]
         binaries = [f"{n:08b}" for n in numbers]
         result = "\n".join(binaries)  # mostrar en líneas separadas
-        resultado_final = "".join(binarios)  # sin espacios, para copiar o guardar
+        return result, "".join(binarios)  # sin espacios, para copiar o guardar
     except ValueError:
         raise ValueError("Make sure to enter a valid input.")
-
