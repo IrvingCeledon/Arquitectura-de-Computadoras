@@ -52,4 +52,5 @@ tk.Button(output_related_buttons, text="Copy to clipboard", command=on_copy, fon
 tk.Button(output_related_buttons, text="Save as .txt", command=controller.on_save, font=("Arial", 11, "bold")).grid(row=0, column=1, padx=10)
 tk.Button(output_related_buttons, text="Clear", command=controller.on_clear, font=("Arial", 11, "bold")).grid(row=0, column=2, padx=10)
 tk.Button(output_related_buttons, text="Exit", command=close_program, font=("Arial", 11, "bold")).grid(row=1, column=0, columnspan=3, padx=10)
+
 window.mainloop()
