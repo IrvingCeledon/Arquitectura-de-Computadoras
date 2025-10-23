@@ -1,46 +1,43 @@
-from tkinter import filedialog, messagebox
-import string
+import tkinter as tk
+from tkinter import scrolledtext, messagebox
+from core.assemblerController import AssemblerController
 
-def load_from_file():
-    file_path = filedialog.askopenfilename(
-        title="Select a file",
-        filetypes=(("Text file", "*.txt"), ("All files", "*.*"))
-    )
+window = tk.Tk()
+window.title("Assembler to Binary")
+window.geometry("700x580")
 
-    try:
-        with open(file_path, 'r') as file:
-            return file.read()
-    except FileNotFoundError:
-        messagebox.showerror("Error", f"File '{file_path}' not found.")
-    except Exception as e:
-        messagebox.showerror("Error", f"An error occurred: {e}")
-    return None    
+def on_copy():
+    bin_output = text_output.get("1.0", tk.END)
     
-def assembler_to_text(text_input : str):
-    text_input = text_input.strip()
-    if not text_input:
-        raise ValueError("The input field is empty.")
+    if not bin_output:
+        messagebox.showinfo("Empty fields", "There is nothing to copy.")
+        return
+        
+    window.clipboard_clear()
+    window.clipboard_append(bin_output)
+    messagebox.showinfo("Copied", "The result has been copied to clipboard.")
+    
+# -----------------------
+# Grafic User Interface
+# -----------------------
 
-    try:
-        fields = text_input.split('$')
-        numbers = [int(p) for p in fields]
-        binaries = [f"{n:08b}" for n in numbers]
-        result = "\n".join(binaries)  # mostrar en líneas separadas
-        return result, "".join(binaries)  # sin espacios, para copiar o guardar
-    except ValueError:
-        raise ValueError("Make sure to enter a valid input.")
+tk.Label(window, text="Assembler input:").pack(anchor='w', padx=10)
+text_input = scrolledtext.ScrolledText(window, height=8, width=70, font=("Consolas", 11))
+text_input.pack(padx=10, pady=5, fill='both', expand=True)
+
+tk.Label(window, text="Binary ouput:").pack(anchor='w', padx=10)
+text_output = scrolledtext.ScrolledText(window, height=8, width=70, font=("Consolas", 11), state='disabled')
+text_output.pack(padx=10, pady=5, fill='both', expand=True)
+
+controller = AssemblerController(text_input, text_output)
     
-def save_as_txt(binary : string):
-    if not binary:
-        raise ValueError("There is nothing to export.")
-    
-    root = filedialog.asksaveasfilename(
-            defaultextension=".txt",
-            filetypes=[("Text file", "*.txt")],
-            title="Save as. . ."
-    )
-    
-    if root: 
-        with open(root, "w") as f:
-            f.write(binary)
-        messagebox.showinfo("Exported correctly", f"File save it in:\n{root}")    
+tk.Button(window, text="Load from file", command=controller.on_load, font=("Arial", 11, "bold")).pack(pady=5)
+tk.Button(window, text="Convert", command=controller.on_convert, font=("Arial", 11, "bold")).pack(pady=5)
+tk.Button(window, text="Clear", command=controller.on_clear, font=("Arial", 11, "bold")).pack(pady=5)
+
+frame_buttons = tk.Frame(window)
+frame_buttons.pack(pady=5)
+tk.Button(frame_buttons, text="Copy to clipboard", command=on_copy).grid(row=0, column=0, padx=10)
+tk.Button(frame_buttons, text="Save as .txt", command=controller.on_save).grid(row=0, column=1, padx=10)
+
+window.mainloop()
