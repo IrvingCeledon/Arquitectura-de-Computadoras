@@ -1,5 +1,6 @@
 import tkinter as tk
 
+# I have to make more generic fuctions for ttk widgets or update these ones.
 def create_button(parent, text_field, fuction):
     return tk.Button(parent, text=text_field, command=fuction, font=("Arial", 11, "bold"))
     

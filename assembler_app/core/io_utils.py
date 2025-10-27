@@ -3,7 +3,7 @@ from tkinter import filedialog, messagebox
 def load_from_file():
     file_path = filedialog.askopenfilename(
         title="Select a file",
-        filetypes=(("Text file", "*.txt"), ("All files", "*.*"))
+        filetypes=(("Text file", "*.txt"), ("Bin", "*.bin"), ("All files", "*.*"))
     )
     
     if not file_path : return None

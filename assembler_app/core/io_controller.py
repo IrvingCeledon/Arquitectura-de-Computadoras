@@ -20,7 +20,7 @@ class IOController:
         try:
             io_utils.save_as_txt(text)
         except ValueError as e:
-            messagebox.showerror("Error", str(e))
+            messagebox.showinfo("Missing fields", str(e))
             
     def set_text_containers(self, input_widget, output_widget): 
         self.input_widget = input_widget

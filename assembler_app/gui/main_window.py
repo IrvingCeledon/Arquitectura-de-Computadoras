@@ -4,14 +4,15 @@ from gui.widgets_factory import create_button, create_frames
 from . settings_window import SettingsWindow
 
 class MainWindow:
-    def __init__(self, root, assembler_controller, io_controller):
+    def __init__(self, root, assembler_controller, io_controller, settings_manager):
         self.root = root
+        self.settings = settings_manager    
         self.assembler_controller = assembler_controller
         self.io_controller = io_controller
         
         self.init_io_containers()
         
-        # Set container to controllers
+        # Set containers to controllers
         self.assembler_controller.set_text_containers(self.text_input, self.text_output)
         self.io_controller.set_text_containers(self.text_input, self.text_output)
         
@@ -71,13 +72,18 @@ class MainWindow:
             messagebox.showinfo("Nothing to clear", "input and output are already empty.")
             return
         
-        if input_text:
+        # Unifying these two conditions is more problematic than keeping them separate.
+        if self.settings.get("clean_input"):
             self.text_input.delete("1.0", tk.END)
         
-        if output_text:
+        if self.settings.get("clean_output"):
             self.text_output.config(state='normal')
             self.text_output.delete("1.0", tk.END)
             self.text_output.config(state='disabled')
         
     def open_settings(self):
-        SettingsWindow(self.root)
+        SettingsWindow(self.root, self.settings, self.apply_settings_changes)
+
+    # Prints log in terminal, i will follow this structure to make a "log error output".
+    def apply_settings_changes(self):
+        print("Settings applied:", self.settings.data)
