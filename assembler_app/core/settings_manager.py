@@ -1,4 +1,3 @@
-# core/settings_manager.py
 import json
 import os
 
