@@ -10,7 +10,8 @@ class SettingsManager:
             "32'b_format": True,
             "clean_input": True,
             "clean_output": True,
-            "accumulate_results": False
+            "accumulate_results": False,
+            "truncate_binaries": True
         }
         self.load()
 
