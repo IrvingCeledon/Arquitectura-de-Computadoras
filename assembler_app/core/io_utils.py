@@ -1,4 +1,5 @@
 from tkinter import filedialog, messagebox
+import os
 
 def load_from_file():
     file_path = filedialog.askopenfilename(
@@ -21,13 +22,12 @@ def save_as_txt(binary : str):
     if not binary:
         raise ValueError("There is nothing to export.")
     
-    root = filedialog.asksaveasfilename(
-            defaultextension=".txt",
-            filetypes=[("Text file", "*.txt")],
-            title="Save as. . ."
-    )
+    folder_path = filedialog.askdirectory(title="Select folder to save instructions")
     
-    if root: 
-        with open(root, "w") as f:
+    if folder_path:
+        file_path = os.path.join(folder_path, "instructions.txt")
+    
+        with open(file_path, "w") as f:
             f.write(binary)
-        messagebox.showinfo("Exported correctly", f"File save it in:\n{root}")    
+            
+        messagebox.showinfo("Exported correctly", f"File save it in:\n{file_path}")
