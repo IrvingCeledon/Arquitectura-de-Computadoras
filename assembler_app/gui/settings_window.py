@@ -7,7 +7,7 @@ class SettingsWindow(tk.Toplevel):
     def __init__(self, parent, settings_manager, on_apply):
         super().__init__(parent)
         self.title("Settings")
-        self.geometry("350x400")
+        self.geometry("350x420")
         self.resizable(False, False)
         self.configure(bg="#f0f0f0")
         
@@ -67,10 +67,16 @@ class SettingsWindow(tk.Toplevel):
 
     def decode_section(self):
         tk.Label(self, text="Decode options", bg="#f0f0f0").pack(anchor='w', padx=20)
+        self.decode_frame = tk.Frame(self, bg="#f0f0f0")
+        self.decode_frame.pack(anchor='w', padx=35, pady=5, fill='x')
         
         self.accumulate_results = tk.BooleanVar(value=self.settings.get("accumulate_results"))
-        ttk.Checkbutton(self, text="Accumulate results in binary output", variable=self.accumulate_results)\
-        .pack(anchor='w', padx=40, pady=10)
+        ttk.Checkbutton(self.decode_frame, text="Accumulate results in binary output", variable=self.accumulate_results)\
+        .grid(row=0, column=0, padx=5, pady=5, sticky="ew")
+        
+        self.truncate_binaries = tk.BooleanVar(value=self.settings.get("truncate_binaries"))
+        ttk.Checkbutton(self.decode_frame, text="Truncate integer inputs", variable=self.truncate_binaries)\
+        .grid(row=1, column=0, padx=5, pady=5, sticky="ew")
 
     def validation_related_buttons(self):
         button_frame = tk.Frame(self, bg="#f0f0f0")
@@ -89,6 +95,7 @@ class SettingsWindow(tk.Toplevel):
         self.settings.set("clean_input", self.clean_input.get())
         self.settings.set("clean_output", self.clean_output.get())
         self.settings.set("accumulate_results", self.accumulate_results.get())
+        self.settings.set("truncate_binaries", self.truncate_binaries.get())
         
         self.settings.save()
         self.on_apply()
@@ -109,6 +116,11 @@ class SettingsWindow(tk.Toplevel):
         if self.dark_mode.get() == True:
             messagebox.showinfo("Working on this, wait for it!", "Dark mode not available", parent=self)
             self.dark_mode.set(False)
+            return False
+            
+        if self.truncate_binaries.get() == False:
+            messagebox.showinfo("Permission required", "Administrator privileges are required", parent=self)
+            self.truncate_binaries.set(True)
             return False
             
         return True
