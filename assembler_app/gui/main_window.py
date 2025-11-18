@@ -7,6 +7,7 @@ class MainWindow:
     def __init__(self, root, assembler_controller, io_controller, settings_manager):
         self.root = root
         self.settings = settings_manager    
+        self.settings_window = None
         self.assembler_controller = assembler_controller
         self.io_controller = io_controller
         
@@ -82,7 +83,15 @@ class MainWindow:
             self.text_output.config(state='disabled')
         
     def open_settings(self):
-        SettingsWindow(self.root, self.settings, self.apply_settings_changes)
+        if self.settings_window is None or not self.settings_window.winfo_exists():
+            self.settings_window = SettingsWindow(self.root, self.settings, self.apply_settings_changes)
+            
+            # To control destruction
+            # self.settings_window.protocol("WM_DELETE_WINDOW", self.close_settings_window)
+        else:
+        # Exists? -> focus
+            self.settings_window.lift()
+            self.settings_window.focus_force()
 
     # Prints log in terminal, i will follow this structure to make a "log error output".
     def apply_settings_changes(self):
