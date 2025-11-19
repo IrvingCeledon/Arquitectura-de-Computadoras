@@ -107,12 +107,7 @@ class SettingsWindow(tk.Toplevel):
                                 "At least one of 'Clean input' or 'Clean output' must be selected.",
                                 parent=self)                    
             return False
-        
-        if self.language_var.get() == "Spanish":
-            messagebox.showinfo("Working on this, wait for it!", "Language change not available", parent=self)
-            self.language_var.set("English")
-            return False
-            
+   
         if self.dark_mode.get() == True:
             messagebox.showinfo("Working on this, wait for it!", "Dark mode not available", parent=self)
             self.dark_mode.set(False)
