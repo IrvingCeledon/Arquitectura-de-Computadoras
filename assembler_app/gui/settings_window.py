@@ -4,15 +4,17 @@ from tkinter import ttk
 from gui.widgets_factory import create_button, create_frames
 
 class SettingsWindow(tk.Toplevel):
-    def __init__(self, parent, settings_manager, on_apply):
+    def __init__(self, parent, settings_manager, on_apply, change_language):
         super().__init__(parent)
         self.title("Settings")
+        self.title(tr["window_title"])
         self.geometry("350x420")
         self.resizable(False, False)
         self.configure(bg="#f0f0f0")
         
         self.settings = settings_manager
         self.on_apply = on_apply
+        self.change_language = change_language
         self.initialize_widgets()
 
     def initialize_widgets(self):
@@ -99,7 +101,15 @@ class SettingsWindow(tk.Toplevel):
         
         self.settings.save()
         self.on_apply()
+        self.change_language()
         self.destroy()
+        
+    def apply_language(self):
+        language = self.settings.get("language")
+        
+        from resources.translations import translations
+
+        tr = translations[language]
         
     def validate_changes(self):
         if not self.clean_input.get() and not self.clean_output.get():
