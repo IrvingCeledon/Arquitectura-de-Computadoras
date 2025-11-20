@@ -4,12 +4,13 @@ from gui.widgets_factory import create_button, create_frames
 from . settings_window import SettingsWindow
 
 class MainWindow:
-    def __init__(self, root, assembler_controller, io_controller, settings_manager):
+    def __init__(self, root, assembler_controller, io_controller, settings_manager, set_language):
         self.root = root
         self.settings = settings_manager    
         self.settings_window = None
         self.assembler_controller = assembler_controller
         self.io_controller = io_controller
+        self.change_language = set_language
         
         self.init_io_containers()
         
@@ -19,12 +20,9 @@ class MainWindow:
         
         self.init_input_buttons()
         self.init_output_buttons()
-        
-        # Load current language
-        self.apply_language()
-    
+
     def init_io_containers(self):
-        self.input_label = tk.Label(self.root, text="")
+        self.input_label = tk.Label(self.root, text="Assembler input:")
         self.input_label.pack(anchor='w', padx=10)
         
         self.text_input = scrolledtext.ScrolledText(self.root, height=8, width=70, font=("Consolas", 11))
@@ -32,36 +30,36 @@ class MainWindow:
         
         self.input_frame  = create_frames(self.root, 5, 'x', 2) # Declare this here just for aesthetic purposes.
 
-        self.output_label = tk.Label(self.root, text="")
+        self.output_label = tk.Label(self.root, text="Binary output:")
         self.output_label.pack(anchor='w', padx=10)
         self.text_output = scrolledtext.ScrolledText(self.root, height=8, width=70, font=("Consolas", 11), state='disabled')
         self.text_output.pack(padx=10, pady=5, fill='both', expand=True)                
-    
+     
     def init_input_buttons(self): 
-        self.load_from_file_button = create_button(self.input_frame, "", self.io_controller.on_load)
+        self.load_from_file_button = create_button(self.input_frame, "Load from file", self.io_controller.on_load)
         self.load_from_file_button.grid(row=0, column=0, padx=5, pady=5, sticky="ew")
         
-        self.convert_button = create_button(self.input_frame, "", self.assembler_controller.on_convert)
+        self.convert_button = create_button(self.input_frame, "Convert", self.assembler_controller.on_convert)
         self.convert_button.grid(row=0, column=1, padx=5, pady=5, sticky="ew")
     
     def init_output_buttons(self): 
         self.output_frame  = create_frames(self.root, pady_value=5, fill_value='x', range_size=2)
         
         # Same row
-        self.copy_to_clipboard_button = create_button(self.output_frame, "", self.on_copy)
+        self.copy_to_clipboard_button = create_button(self.output_frame, "Copy to clipboard", self.on_copy)
         self.copy_to_clipboard_button.grid(row=0, column=0, padx=5, pady=5, sticky="ew")
         
-        self.save_as_txt_button = create_button(self.output_frame, "", self.io_controller.on_save)
+        self.save_as_txt_button = create_button(self.output_frame, "Save as .txt", self.io_controller.on_save)
         self.save_as_txt_button.grid(row=0, column=1, padx=5, pady=5, sticky="ew")
         
-        self.clear_button = create_button(self.output_frame, "", self.on_clear)
+        self.clear_button = create_button(self.output_frame, "Clear", self.on_clear)
         self.clear_button.grid(row=0, column=2, padx=5, pady=5, sticky="ew")
          
         # Different row
-        self.exit_button = create_button(self.output_frame, "", self.root.destroy)
+        self.exit_button = create_button(self.output_frame, "Exit", self.root.destroy)
         self.exit_button.grid(row=1, column=0, columnspan=3, padx=5, pady=5, sticky="ew")
         
-        self.settings_button = create_button(self.output_frame, "", self.open_settings)
+        self.settings_button = create_button(self.output_frame, "Settings", self.open_settings)
         self.settings_button.grid(row=2, column=0, columnspan=3, padx=5, pady=5, sticky="ew")
         
     def on_copy(self):
@@ -94,7 +92,7 @@ class MainWindow:
         
     def open_settings(self):
         if self.settings_window is None or not self.settings_window.winfo_exists():
-            self.settings_window = SettingsWindow(self.root, self.settings, self.apply_settings_changes)
+            self.settings_window = SettingsWindow(self.root, self.settings, self.apply_settings_changes, self.change_language)
             
             # To control destruction
             # self.settings_window.protocol("WM_DELETE_WINDOW", self.close_settings_window)
@@ -105,16 +103,10 @@ class MainWindow:
 
     # Prints log in terminal, i will follow this structure to make a "log error output".
     def apply_settings_changes(self):
-        self.apply_language()
         print("Settings applied:", self.settings.data)
         
-    def apply_language(self):
-        language = self.settings.get("language")
-        
-        from resources.translations import translations
-
-        tr = translations[language]
-        
+    # tr = actual language dictionary
+    def apply_language(self, tr):
         self.input_label.config(text=tr["input_label"])
         self.load_from_file_button.config(text=tr["load_button"])
         self.convert_button.config(text=tr["convert_button"])
