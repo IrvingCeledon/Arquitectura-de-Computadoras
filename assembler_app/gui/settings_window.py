@@ -171,18 +171,18 @@ class SettingsWindow(tk.Toplevel):
         
     def validate_changes(self):
         if not self.clean_input.get() and not self.clean_output.get():
-            messagebox.showerror("Invalid configuration", 
-                                "At least one of 'Clean input' or 'Clean output' must be selected.",
+            messagebox.showerror(self.tr["invalid_config_title"], 
+                                self.tr["invalid_config_message"],
                                 parent=self)                    
             return False
    
         if self.dark_mode.get() == True:
-            messagebox.showinfo("Working on this, wait for it!", "Dark mode not available", parent=self)
+            messagebox.showinfo(self.tr["info_dark_mode_title"], self.tr["info_dark_mode_message"], parent=self)
             self.dark_mode.set(False)
             return False
             
         if self.truncate_binaries.get() == False:
-            messagebox.showinfo("Permission required", "Administrator privileges are required", parent=self)
+            messagebox.showinfo(self.tr["perm_required_title"], self.tr["perm_required_message"], parent=self)
             self.truncate_binaries.set(True)
             return False
             
