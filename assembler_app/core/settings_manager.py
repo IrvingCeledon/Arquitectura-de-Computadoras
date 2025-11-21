@@ -3,9 +3,11 @@ import os
 
 class SettingsManager:
     def __init__(self, filename="settings.json"):
-        base_dir = os.path.dirname(os.path.abspath(__file__))
+        core_dir = os.path.dirname(os.path.abspath(__file__))
         
-        self.config_dir = os.path.join(base_dir, "data")
+        project_root = os.path.dirname(core_dir)
+        
+        self.config_dir = os.path.join(project_root, "data")
         os.makedirs(self.config_dir, exist_ok=True)
         
         self.filepath = os.path.join(self.config_dir, filename)
