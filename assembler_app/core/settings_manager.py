@@ -2,10 +2,15 @@ import json
 import os
 
 class SettingsManager:
-    def __init__(self, filepath="settings.json"):
-        self.filepath = filepath
+    def __init__(self, filename="settings.json"):
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        
+        self.config_dir = os.path.join(base_dir, "data")
+        os.makedirs(self.config_dir, exist_ok=True)
+        
+        self.filepath = os.path.join(self.config_dir, filename)
         self.data = {
-            "language": "English",
+            "language": "en_US",
             "dark_mode": False,
             "32'b_format": True,
             "clean_input": True,
