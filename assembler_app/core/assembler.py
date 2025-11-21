@@ -1,4 +1,4 @@
-from . import assembler_data
+from resources import assembler_data
 
 # This method works as an error handler for decoding. It receives user's input and returns the output.
 def assembler_to_binary(text_input : str):
