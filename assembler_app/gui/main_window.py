@@ -67,26 +67,36 @@ class MainWindow:
         bin_output = self.text_output.get("1.0", tk.END).strip()
         
         if not bin_output:
-            messagebox.showinfo("Empty fields", "There is nothing to copy.")
+            messagebox.showinfo(self.tr["empty_output_title"], self.tr["empty_output_message"])
             return
             
         self.root.clipboard_clear()
         self.root.clipboard_append(bin_output)
-        messagebox.showinfo("Copied", "The result has been copied to clipboard.")
+        messagebox.showinfo(self.tr["copied_title"], self.tr["copied_message"])
         
     def on_clear(self):
         input_text = self.text_input.get("1.0", tk.END).strip()
         output_text = self.text_output.get("1.0", tk.END).strip()
         
-        if not input_text and not output_text:
-            messagebox.showinfo("Nothing to clear", "input and output are already empty.")
+        have_to_clean_input = self.settings.get("clean_input")
+        have_to_clean_output = self.settings.get("clean_output")
+        have_to_clean_all = have_to_clean_input and have_to_clean_output
+        
+        if not input_text and not output_text and have_to_clean_all:
+            messagebox.showinfo(self.tr["nothing_to_clear_title"], self.tr["nothing_to_clear_message"])
             return
+        elif not input_text and have_to_clean_input:
+            messagebox.showinfo(self.tr["cannot_clean_input_title"], self.tr["cannot_clean_input_message"])
+            return
+        elif not output_text and have_to_clean_output:
+            messagebox.showinfo(self.tr["cannot_clean_output_title"], self.tr["cannot_clean_output_message"])
+            return            
         
         # Unifying these two conditions is more problematic than keeping them separate it.
-        if self.settings.get("clean_input"):
+        if have_to_clean_input:
             self.text_input.delete("1.0", tk.END)
         
-        if self.settings.get("clean_output"):
+        if have_to_clean_output:
             self.text_output.config(state='normal')
             self.text_output.delete("1.0", tk.END)
             self.text_output.config(state='disabled')
