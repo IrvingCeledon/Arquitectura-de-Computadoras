@@ -17,7 +17,7 @@ class ApplicationController:
         self.language_dictionary = translations[self.current_language]
         self.root.title(self.language_dictionary["app_title"])
         
-        self.assembler_controller = AssemblerController(None, None, self.settings)
+        self.assembler_controller = AssemblerController(None, None, self.settings, self.language_dictionary)
         self.io_controller = IOController(None, None, self.language_dictionary)
         init_styles()
         self.main_window = MainWindow(self.root, self.assembler_controller, self.io_controller, self.settings, self.language_dictionary, self.set_language)
@@ -36,5 +36,6 @@ class ApplicationController:
         self.language_dictionary = translations[self.current_language]
         
         self.root.title(self.language_dictionary["app_title"])
-        self.main_window.apply_language(self.language_dictionary)
+        self.assembler_controller.apply_language(self.language_dictionary)
         self.io_controller.apply_language(self.language_dictionary)
+        self.main_window.apply_language(self.language_dictionary)
