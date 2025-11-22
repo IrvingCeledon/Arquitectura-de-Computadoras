@@ -61,8 +61,26 @@ translations = {
         "txt_option": "Text file",
         "bin_option": "Binary",
         "all_option": "All files",
+        "generic_error_title": "Error",
+        "error_while_opening_file_message": "File not found in: ",
+        "generic_error_message": "An error occurred: ",  
+        "nothing_to_export_error": "There is nothing to export.",
+        "select_path": "Select the path to save the instructions",
+        "export_success_title": "Exported correctly!",
+        "export_success_message": "File save it in:\n",
+      
+        # ----- AssemblerController ----- #
+        # No text to translate for the moment
+        # Gonna be, gonna be golden Oh-oh-oh~~~
         
-    },# self.tr[""]
+        # ----- Assembler ----- #
+        "assembly_input_empty_flag": "The input field is empty",
+        "invalid_isntruction_flag": "Invalid instruction, code not found: ",
+        "hash_not_found_flag": "Missing inmediate value (#) in: ",
+        "upper_limit_flag": "Invalid input, too many arguments",
+        "lower_limit_flag": "Invalid input, too few arguments",
+        "is_not_integer_flag": "Invalid input, please enter only whole numbers"
+    },
     
     "es_MX": {
         # ----- AppTitle ----- #
@@ -126,5 +144,24 @@ translations = {
         "txt_option": "Archivo de texto",
         "bin_option": "Binario",
         "all_option": "Todos los archivos",
+        "generic_error_title": "Error",
+        "error_while_opening_file_message": "No se pudó abrir el archivo en: ",
+        "generic_error_message": "Ocurrió un error: ",  
+        "nothing_to_export_error": "No hay nada para exportar",
+        "select_path": "Selecciona la ruta en la que quieres guardar tus instrucciones",
+        "export_success_title": "¡Exportación existosa!",
+        "export_success_message": "Archivo guardado en:\n",
+        
+        # ----- AssemblerController ----- #
+        # No text to translate for the moment
+        # Boat goes binted!
+        
+        # ----- Assembler ----- #
+        "assembly_input_empty_flag": "La entrada esta vacía",
+        "invalid_isntruction_flag": "Instrucción inválida, código no encontrado: ",
+        "hash_not_found_flag": "No fue posible determinar el valor inmediato (#) en:",
+        "upper_limit_flag": "Entrada inválida, demasiados argumentos",
+        "lower_limit_flag": "Entrada inválida, son necesarios más argumentos",
+        "is_not_integer_flag": "Entrada inválida, por favor ingresa solo números enteros"
     }
 }
