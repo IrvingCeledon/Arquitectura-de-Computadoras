@@ -17,16 +17,16 @@ class IOUtils:
             with open(file_path, 'r') as file:
                 return file.read()
         except FileNotFoundError:
-            messagebox.showerror("Error", f"File '{file_path}' not found.")
+            messagebox.showerror(self.tr["generic_error_title"], f"{self.tr['error_while_opening_file_message']} {file_path}")
         except Exception as e:
-            messagebox.showerror("Error", f"An error occurred: {e}")
+            messagebox.showerror(self.tr["generic_error_title"], f"{self.tr['generic_error_message']} {e}")
         return None    
         
     def save_as_txt(self, binary : str):
         if not binary:
-            raise ValueError("There is nothing to export.")
+            raise ValueError(self.tr["nothing_to_export_error"])
         
-        folder_path = filedialog.askdirectory(title="Select folder to save instructions")
+        folder_path = filedialog.askdirectory(title=self.tr["select_path"])
         
         if folder_path:
             file_path = os.path.join(folder_path, "instructions.txt")
@@ -34,7 +34,7 @@ class IOUtils:
             with open(file_path, "w") as f:
                 f.write(binary)
                 
-            messagebox.showinfo("Exported correctly", f"File save it in:\n{file_path}")
+            messagebox.showinfo(self.tr["export_success_title"], f"{self.tr['export_success_message']} {file_path}")
 
     def apply_language(self, new_tr):
         self.tr = new_tr
