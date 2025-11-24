@@ -1,6 +1,11 @@
-from handlers.app_controller import ApplicationController
+import tracemalloc
+from handlers import ApplicationController
 
-# This block runs only if the file is executed directly.
-if __name__ == "__main__":
+def main():
+    tracemalloc.start()
     app = ApplicationController()
     app.run()
+    print(tracemalloc.get_traced_memory())
+    
+if __name__ == "__main__":
+    main()
