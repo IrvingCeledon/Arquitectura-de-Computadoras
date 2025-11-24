@@ -1,4 +1,4 @@
-translations = {
+TRANSLATIONS = {
     "en_US": {
         # ----- AppTitle ----- #
         "app_title": "Assembler to Binary",
@@ -75,7 +75,7 @@ translations = {
         
         # ----- Assembler ----- #
         "assembly_input_empty_flag": "The input field is empty",
-        "invalid_isntruction_flag": "Invalid instruction, code not found: ",
+        "invalid_instruction_flag": "Invalid instruction, code not found: ",
         "hash_not_found_flag": "Missing inmediate value (#) in: ",
         "upper_limit_flag": "Invalid input, too many arguments",
         "lower_limit_flag": "Invalid input, too few arguments",
@@ -158,7 +158,7 @@ translations = {
         
         # ----- Assembler ----- #
         "assembly_input_empty_flag": "La entrada esta vacía",
-        "invalid_isntruction_flag": "Instrucción inválida, código no encontrado: ",
+        "invalid_instruction_flag": "Instrucción inválida, código no encontrado: ",
         "hash_not_found_flag": "No fue posible determinar el valor inmediato (#) en:",
         "upper_limit_flag": "Entrada inválida, demasiados argumentos",
         "lower_limit_flag": "Entrada inválida, son necesarios más argumentos",
