@@ -13,14 +13,16 @@ class MainWindow:
         self.change_language = change_language
         
         self.init_io_containers()
+        self.init_input_buttons()
+        self.init_output_buttons()
         
         # Set containers to controllers
         self.assembler_controller.set_text_containers(self.text_input, self.text_output)
         self.io_controller.set_text_containers(self.text_input, self.text_output)
   
-    def _build_ui(self):
+    # def _build_ui(self):
         
-    def _bind_controllers(self):
+    # def _bind_controllers(self):
 
     def init_io_containers(self):
         self.input_lbl = tk.Label(self.root, text=self.tr["input_lbl"])
