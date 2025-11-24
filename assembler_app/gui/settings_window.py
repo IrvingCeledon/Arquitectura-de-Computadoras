@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
-from gui.widgets_factory import create_button, create_frames
+from gui import create_button, create_frames
 
 class SettingsWindow(tk.Toplevel):
     def __init__(self, parent, settings_manager, on_apply, language_dictionary, change_language):
@@ -65,8 +65,8 @@ class SettingsWindow(tk.Toplevel):
         self.change_language()
         
         # Updates dictionary  
-        from resources.translations import translations
-        self.tr = translations[language_code]
+        from resources import TRANSLATIONS
+        self.tr = TRANSLATIONS[language_code]
 
         # Automatic translation
         self.apply_language()

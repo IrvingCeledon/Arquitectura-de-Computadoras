@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import scrolledtext, messagebox
-from gui.widgets_factory import create_button, create_frames
-from . settings_window import SettingsWindow
+from gui import create_button, create_frames, SettingsWindow
 
 class MainWindow:
     def __init__(self, root, assembler_controller, io_controller, settings_manager, language_dictionary, change_language):
@@ -18,9 +17,10 @@ class MainWindow:
         # Set containers to controllers
         self.assembler_controller.set_text_containers(self.text_input, self.text_output)
         self.io_controller.set_text_containers(self.text_input, self.text_output)
+  
+    def _build_ui(self):
         
-        self.init_input_buttons()
-        self.init_output_buttons()
+    def _bind_controllers(self):
 
     def init_io_containers(self):
         self.input_lbl = tk.Label(self.root, text=self.tr["input_lbl"])
