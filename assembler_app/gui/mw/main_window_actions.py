@@ -51,16 +51,14 @@ class MainWindowActions:
         have_to_clean_input = self.settings.get("clean_input")
         have_to_clean_output = self.settings.get("clean_output")
         have_to_clean_all = have_to_clean_input and have_to_clean_output
-        
+
         if have_to_clean_all and input_empty and output_empty:
             self._show_info(self.tr["nothing_to_clear_title"], self.tr["nothing_to_clear_message"])
             return
-        
-        if have_to_clean_input and input_empty:
+        elif not have_to_clean_all and have_to_clean_input and input_empty:
             self._show_info(self.tr["cannot_clean_input_title"], self.tr["cannot_clean_input_message"])
             return
-            
-        if have_to_clean_output and output_empty:
+        elif not have_to_clean_all and have_to_clean_output and output_empty:
             self._show_info(self.tr["cannot_clean_output_title"], self.tr["cannot_clean_output_message"])
             return            
         

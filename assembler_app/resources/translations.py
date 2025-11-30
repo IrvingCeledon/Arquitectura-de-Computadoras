@@ -75,7 +75,8 @@ TRANSLATIONS = {
         
         # ----- Assembler ----- #
         "assembly_input_empty_flag": "The input field is empty",
-        "invalid_instruction_flag": "Invalid instruction, code not found: ",
+        "unsoported_instruction_flag": "Unknow instruction, did you mistype?",
+        "invalid_opcode_flag": "Invalid instruction, code not found: ",
         "hash_not_found_flag": "Missing inmediate value (#) in: ",
         "upper_limit_flag": "Invalid input, too many arguments",
         "lower_limit_flag": "Invalid input, too few arguments",
@@ -158,7 +159,8 @@ TRANSLATIONS = {
         
         # ----- Assembler ----- #
         "assembly_input_empty_flag": "La entrada esta vacía",
-        "invalid_instruction_flag": "Instrucción inválida, código no encontrado: ",
+        "unsoported_instruction_flag": "No se pudo detectar el tipo de instrucción, ¿puedes revisar tu entrada?",
+        "invalid_opcode_flag": "Instrucción inválida, código no encontrado: ",
         "hash_not_found_flag": "No fue posible determinar el valor inmediato (#) en:",
         "upper_limit_flag": "Entrada inválida, demasiados argumentos",
         "lower_limit_flag": "Entrada inválida, son necesarios más argumentos",

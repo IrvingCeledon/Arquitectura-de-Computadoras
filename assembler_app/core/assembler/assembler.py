@@ -1,3 +1,4 @@
+import re
 from resources import INSTRUCTIONS
 
 class Assembler:
@@ -39,39 +40,57 @@ class Assembler:
 
         # Returns all binary instructions separated by a newline.   
         return "\n".join(formatted_instructions)
- 
+# I'm thinking in make a search for $ and #
     def _parser(self, assembly_input : str):
-        fields = assembly_input.split('$')
+        instr_type, fields = self._detect_instruction_type(assembly_input)
+        if not instr_type and not fields: # Check both fields is a bit unnecesary
+            raise ValueError(f"{self.tr['unsoported_instruction_flag']} {assembly_input}")
+        
         instr_op = fields[0].upper().strip()
         
         instr_info = INSTRUCTIONS.get(instr_op)
         if instr_info is None :
-            raise ValueError(f"{self.tr['invalid_instruction_flag']} {instr_op}")
- 
-        instr_type = instr_info["type"]
+            raise ValueError(f"{self.tr['invalid_opcode_flag']} {instr_op}")
         
         if instr_type == "R":
             return self._parser_r_fields(instr_info, fields)
         elif instr_type == "I":
             return self._parser_i_fields(instr_info, fields)
+        else: 
+            return self._parser_j_fields(instr_info, fields)     
+    
+    def _detect_instruction_type(self, assembly_input):
+        register_count = assembly_input.count('$')
+        hash_count = assembly_input.count('#')
+        
+        if register_count == 3 and hash_count == 0:
+            return ( "R", assembly_input.split('$') )
+        elif register_count == 2 and hash_count == 1:
+            return ( "I", re.split(r'[\$#]', assembly_input) )
+        elif register_count == 0 and hash_count == 1:
+            return ( "J", assembly_input.split('#') )
+        else: 
+            return (None, None)
 
     def _parser_r_fields(self, instr_info, fields):
         self._validate_range(fields, 4)
         numbers = [fields[1], fields[2], fields[3]]
 
-        return self._instruction_builder(instr_info, self._to_int(numbers))
+        return self._instruction_builder("R", instr_info, self._to_int(numbers))
   
     def _parser_i_fields(self, instr_info, fields):
-        self._validate_range(fields, 3)
-   
-        if '#' not in fields[2]:
-            raise ValueError(f"{self.tr['hash_not_found_flag']} {fields[2]}")
+        self._validate_range(fields, 4)
+        numbers = [fields[1], fields[2], fields[3]]    
   
-        parts = fields[2].split('#')
-        numbers = [fields[1], parts[0], parts[1]]    
+        return self._instruction_builder("I", instr_info, self._to_int(numbers))
+    
+    def _parser_j_fields(self, instr_info, fields):
+        self._validate_range(fields, 2)
+        number = fields[1]
+        
+        return self._instruction_builder( "J", instr_info, self._to_int([number]) ) 
   
-        return self._instruction_builder(instr_info, self._to_int(numbers))
-  
+    # This is unnecesary at this point, but i'll keep it for nomas.
     def _validate_range(self, data, limit_bound):
         if len(data) > limit_bound :
             raise ValueError(self.tr["upper_limit_flag"])
@@ -85,14 +104,15 @@ class Assembler:
         except ValueError:
             raise ValueError(self.tr["is_not_integer_flag"])
 
-    def _instruction_builder(self, type_info, numbers_data):
-        instr_type = type_info["type"]
+    def _instruction_builder(self, instr_type, type_info, numbers_data):
         print("DEBUG → instruction_builder:", numbers_data) 
         
         if instr_type == "R":
             return self._build_r_type(type_info, numbers_data)
         elif instr_type == "I":
             return self._build_i_type(type_info, numbers_data)
+        elif instr_type == "J":
+            return self._build_j_type(type_info, numbers_data)
 
     def _build_r_type(self, info, data):
         """Builds the binary instruction (R-type MIPS)."""
@@ -114,6 +134,14 @@ class Assembler:
         print("DEBUG → build_i_type:", data) 
         
         return (op + rs + rt + inm)
+    
+    def _build_j_type(self, info, data):
+        """Builds the binary instruction (J-type MIPS)."""
+        op      = f"{int(info['opcode']):06b}"
+        target  = f"{self._truncate_to_bits(data[0], 26):026b}"
+        print("DEBUG → build_j_type:", data) 
+        
+        return (op + target)
  
     def _truncate_to_bits(self, value, bits):
         mask = (1 << bits) - 1 
