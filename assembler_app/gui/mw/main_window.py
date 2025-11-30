@@ -1,13 +1,17 @@
 import tkinter as tk
-from tkinter import scrolledtext, messagebox
-from gui import MainWindowUI, MainWindowActions
+from .main_window_ui import MainWindowUI
+from .main_window_actions import MainWindowActions
 
 class MainWindow:
     def __init__(self, root, language_dictionary, io_controller, assembler_controller, settings_manager, change_language):
         self.root = root
         self.tr = language_dictionary
         
-        self.ui = MainWindowUI(self.root, self.tr)
+        self.main_frame = tk.Frame(self.root)
+        self.main_frame.pack(fill="both", expand=True)
+        
+        self.ui = MainWindowUI(self.main_frame, self.tr)
+        
         self.actions = MainWindowActions(
             self.root,
             self.tr,
@@ -18,7 +22,7 @@ class MainWindow:
             change_language=change_language
         )
         
-        self.actions.bind_controllers()
+        self.actions.bind_widgets()
 
     def apply_language(self, new_tr):
         self.tr = new_tr

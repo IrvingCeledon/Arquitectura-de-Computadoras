@@ -16,7 +16,7 @@ class MainWindowActions:
         self.input_container = self.ui.get_text_input()
         self.output_container = self.ui.get_text_output()
 
-    def bind_controllers(self):
+    def bind_widgets(self):
         self.assembler.set_text_containers(self.input_container, self.output_container)
         self.io.set_text_containers(self.input_container, self.output_container)
         self._bind_buttons()
@@ -29,6 +29,7 @@ class MainWindowActions:
         btns["copy"].config(command=self.on_copy)
         btns["save"].config(command=self.io.on_save)
         btns["clear"].config(command=self.on_clear)
+        btns["exit"].config(command=self.root.destroy)
         btns["settings"].config(command=self.open_settings)
 
     # ----------------- ACTIONS -----------------    
@@ -81,9 +82,9 @@ class MainWindowActions:
         if self.settings_window is None or not self.settings_window.winfo_exists():
             self.settings_window = SettingsWindow(
                 self.root, 
+                self.tr, 
                 self.settings, 
                 self.apply_settings_changes, 
-                self.tr, 
                 self.change_language
             )
             

@@ -3,8 +3,8 @@ from tkinter import scrolledtext
 from gui import create_button, create_frames
 
 class MainWindowUI:
-    def __init__(self, root, language_dictionary):
-        self.root = root
+    def __init__(self, main_frame, language_dictionary):
+        self.main_frame = main_frame
         self.tr = language_dictionary
         
         self._build_ui()
@@ -15,25 +15,25 @@ class MainWindowUI:
         self._create_buttons()
    
     def _create_input_section(self):
-        self.input_lbl = tk.Label(self.root, text=self.tr["input_lbl"])
+        self.input_lbl = tk.Label(self.main_frame, text=self.tr["input_lbl"])
         self.input_lbl.pack(anchor='w', padx=10)
         
         self.text_input = scrolledtext.ScrolledText(
-            self.root, 
+            self.main_frame, 
             height=8, 
             width=70, 
             font=("Consolas", 11)
         )
         self.text_input.pack(padx=10, pady=5, fill='both', expand=True)    
         
-        self.input_frame  = create_frames(self.root, 5, 'x', 2) # Declare this here just for aesthetic purposes.        
+        self.input_frame  = create_frames(self.main_frame, 5, 'x', 2) # Declare this here just for aesthetic purposes.        
 
     def _create_output_section(self):
-        self.output_lbl = tk.Label(self.root, text=self.tr["output_lbl"])
+        self.output_lbl = tk.Label(self.main_frame, text=self.tr["output_lbl"])
         self.output_lbl.pack(anchor='w', padx=10)
         
         self.text_output = scrolledtext.ScrolledText(
-            self.root, 
+            self.main_frame, 
             height=8, 
             width=70, 
             font=("Consolas", 11), 
@@ -41,6 +41,7 @@ class MainWindowUI:
         )
         self.text_output.pack(padx=10, pady=5, fill='both', expand=True)
    
+    # It would be more 'pythonic' to use @property, but at the moment is something to think about.
     def get_text_input(self):
         return self.text_input
     
@@ -59,12 +60,12 @@ class MainWindowUI:
         self.convert_btn.grid(row=0, column=1, padx=5, pady=5, sticky="ew")
     
     def _init_output_buttons(self): 
-        self.output_frame = create_frames(self.root, pady_value=5, fill_value='x', range_size=2)
+        self.output_frame = create_frames(self.main_frame, pady_value=5, fill_value='x', range_size=2)
 
         self.copy_btn = create_button(self.output_frame, self.tr["copy_to_clipboard_btn"], None)
         self.save_btn = create_button(self.output_frame, self.tr["save_as_txt_btn"], None)
         self.clear_btn = create_button(self.output_frame, self.tr["clear_btn"], None)
-        self.exit_btn = create_button(self.output_frame, self.tr["exit_btn"], self.root.destroy)
+        self.exit_btn = create_button(self.output_frame, self.tr["exit_btn"], None)
         self.settings_btn = create_button(self.output_frame, self.tr["settings_btn"], None)
 
         buttons = [self.copy_btn, self.save_btn, self.clear_btn]
@@ -85,6 +86,7 @@ class MainWindowUI:
             "settings": self.settings_btn,
         }
 
+    # I should make a list of widgets to translate it by a cycle
     def apply_language(self, new_tr):
         self.tr = new_tr
         self.input_lbl.config(text=self.tr["input_lbl"])
