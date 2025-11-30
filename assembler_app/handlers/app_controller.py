@@ -39,10 +39,10 @@ class ApplicationController:
         
         self.main_window = MainWindow(
             self.root, 
-            self.assembler_controller, 
-            self.io_controller, 
-            self.settings, 
             self.language_dictionary, 
+            self.io_controller, 
+            self.assembler_controller, 
+            self.settings, 
             self.refresh_language
         )
 
