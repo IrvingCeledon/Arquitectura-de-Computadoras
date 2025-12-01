@@ -58,6 +58,9 @@ class MainWindowUI:
         
         self.convert_btn = create_button(self.input_frame, self.tr["convert_btn"], None)
         self.convert_btn.grid(row=0, column=1, padx=5, pady=5, sticky="ew")
+        
+        self.data_generator_btn = create_button(self.input_frame, self.tr["data_generator_btn"], None)
+        self.data_generator_btn.grid(row=0, column=2, padx=5, pady=5, sticky="ew")
     
     def _init_output_buttons(self): 
         self.output_frame = create_frames(self.main_frame, pady_value=5, fill_value='x', range_size=2)
@@ -79,6 +82,7 @@ class MainWindowUI:
         return {
             "load": self.load_from_file_btn,
             "convert": self.convert_btn,
+            "generator": self.data_generator_btn,
             "copy": self.copy_btn,
             "save": self.save_btn,
             "clear": self.clear_btn,
@@ -95,6 +99,7 @@ class MainWindowUI:
         for btn, key in [
             (self.load_from_file_btn, "load_btn"),
             (self.convert_btn, "convert_btn"),
+            (self.data_generator_btn, "data_generator_btn"),
             (self.copy_btn, "copy_to_clipboard_btn"),
             (self.save_btn, "save_as_txt_btn"),
             (self.clear_btn, "clear_btn"),

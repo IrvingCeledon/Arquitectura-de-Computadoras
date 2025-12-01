@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+import random
 from gui import SettingsWindow
 
 class MainWindowActions:
@@ -26,13 +27,34 @@ class MainWindowActions:
 
         btns["load"].config(command=self.io.on_load)
         btns["convert"].config(command=self.assembler.on_convert)
+        btns["generator"].config(command=self.on_generator)
         btns["copy"].config(command=self.on_copy)
         btns["save"].config(command=self.io.on_save)
         btns["clear"].config(command=self.on_clear)
         btns["exit"].config(command=self.root.destroy)
         btns["settings"].config(command=self.open_settings)
 
-    # ----------------- ACTIONS -----------------    
+    # ----------------- ACTIONS -----------------  
+    # Provisional
+    def on_generator(self):
+        data_size = self.input_container.get("1.0", tk.END).strip()
+
+        self.output_container.config(state='normal')
+        
+        if not data_size.isdigit():
+            self.output_container.insert("1.0", self.tr["not_integer_flag"])
+            return
+
+        n = int(data_size)
+
+        list = random.sample(range(1, n + 1), n)
+
+        text = "\n".join(str(x) for x in list)
+
+        self.output_container.delete("1.0", tk.END)
+        self.output_container.insert(tk.END, text)   
+        self.output_container.config(state='disabled')   
+        
     def on_copy(self):
         bin_output = self.output_container.get("1.0", tk.END).strip()
         
@@ -64,7 +86,7 @@ class MainWindowActions:
         
         if have_to_clean_input:
             self.input_container.delete("1.0", tk.END)
-        elif have_to_clean_output:
+        if have_to_clean_output:
             self._clear_output()
    
     # Candidate to a Utils class        

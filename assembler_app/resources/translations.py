@@ -7,6 +7,7 @@ TRANSLATIONS = {
         "input_lbl": "Assembler input:",
         "load_btn": "Load from file",
         "convert_btn": "Convert",
+        "data_generator_btn": "Generate data",
         "output_lbl": "Binary output:",
         "copy_to_clipboard_btn": "Copy to clipboard",
         "save_as_txt_btn": "Save as .txt",
@@ -15,6 +16,7 @@ TRANSLATIONS = {
         "settings_btn": "Settings",
         
         # Info messages:
+        "not_integer_flag": "Error, please enter a whole number\n",
         "empty_output_title": "Empty fields",
         "empty_output_message": "There is nothing to copy",
         "copied_title": "Copied!",
@@ -91,6 +93,7 @@ TRANSLATIONS = {
         "input_lbl": "Entrada en ensamblador:",
         "load_btn": "Cargar desde un archivo",
         "convert_btn": "Procesar",
+        "data_generator_btn": "Generate data",
         "output_lbl": "Salida en binario:",
         "copy_to_clipboard_btn": "Copiar al portapapeles",
         "save_as_txt_btn": "Guardar como archivo .txt",
@@ -99,6 +102,7 @@ TRANSLATIONS = {
         "settings_btn": "Ajustes",
 
         # Info messages:
+        "not_integer_flag": "Error: Ingresa un número entero.\n",
         "empty_output_title": "Campos vacíos",
         "empty_output_message": "No hay nada para copiar",
         "copied_title": "Copiado!",
