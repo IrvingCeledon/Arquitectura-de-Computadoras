@@ -1,0 +1,1 @@
+Este repositorio contiene las prácticas hechas en ModelSim durante el semestre de 2025B, asi mismo, cuenta con las carpetas pertenecientes al proyecto para su fácil acceso y un apartado del proyecto, con más detalles.
